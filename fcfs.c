@@ -9,7 +9,18 @@ double avgWT(int num, int mat[][6]);
 void printResult(int num, int mat[][6]);
 void fcfs(int num, int mat[][6]);
 
-  
+/*
+The matrix mat[][6] contains 
+  -> process ID at index 0
+  -> Arrival time at index 1
+  -> Burst Time at index 2
+  -> Completion/Finish Time at index 3
+  -> Turn Around Time at index 4
+  -> Waiting Time at index 5
+*/
+
+
+//arranging processes according to arrival times  
 void arrangeArrival(int num, int mat[][6]){
     for (int i = 0; i < num; i++) {
         for (int j = 0; j < num - i - 1; j++) {
@@ -25,11 +36,12 @@ void arrangeArrival(int num, int mat[][6]){
     }
 }
 
+
 void completionTime(int num, int mat[][6]){
     mat[0][3] = mat[0][2] + mat[0][1];
     int currTime = mat[0][3];
     for(int i = 1; i < num; i++){
-        if(mat[i][1] > currTime) currTime = mat[i][1];
+        if(mat[i][1] > currTime) currTime = mat[i][1]; //if arrival time of next process is greater than current time
         mat[i][3] = currTime + mat[i][2];
         currTime = mat[i][3];
     }
@@ -40,11 +52,11 @@ void completionTime(int num, int mat[][6]){
 }
 
 void turnAroundTime(int num, int mat[][6]){
-    for(int i = 0; i < num; i++) mat[i][4] = mat[i][3] - mat[i][1];
+    for(int i = 0; i < num; i++) mat[i][4] = mat[i][3] - mat[i][1]; //tat = ct - at
 }
 
 void waitingTime(int num, int mat[][6]){
-    for(int i = 0; i < num; i++) mat[i][5] = mat[i][4] - mat[i][2];
+    for(int i = 0; i < num; i++) mat[i][5] = mat[i][4] - mat[i][2]; //wt = tat - bt
 }
 
 double avgTAT(int num, int mat[][6]){
